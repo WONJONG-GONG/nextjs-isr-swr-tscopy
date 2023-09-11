@@ -1,10 +1,12 @@
+"use client"
+
 import axios from 'axios';
 import useSWR from 'swr';
-import dump from '../dump.json';
+import dump from '../../dump.json';
 import moment from 'moment-timezone';
 import { useEffect, useState } from 'react';
 import { GetStaticProps } from 'next';
-import { fetchCurrentTaxis } from './api/index';
+import { fetchCurrentTaxis } from '../api';
 
 export const getStaticProps: GetStaticProps<any> = async () => {
     return {
@@ -17,13 +19,13 @@ export const getStaticProps: GetStaticProps<any> = async () => {
 
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
-const App: React.FC<any> = (props) => {
+const Page: React.FC<any> = (props) => {
     const [cnt, setCnt] = useState<number>(0);
-    const { data, error } = useSWR<any>('/api', fetcher, {fallbackData: props.data, refreshInterval: 100});
+    const { data, error } = useSWR<any>(`/api?type=taxi`, fetcher, {fallbackData: props.data, refreshInterval: 100});
     
-    const { ts, count } = data.features[0].properties.timestamp;
+    const { timestamp, taxi_count } = data.features[0].properties;
     const coordinates = data.features[0].geometry.coordinates;
-    
+
     useEffect(() => {
         setCnt(cnt + 1);
     }, [data]);
@@ -33,8 +35,8 @@ const App: React.FC<any> = (props) => {
     return (
         <>
             <div>As of 
-                <p>{moment.tz(ts, 'Asia/Singapore').toString()}</p>
-                there are {count} taxis available in Singapore<br/>
+                <p>{moment.tz(timestamp, 'Asia/Singapore').toString()}</p>
+                there are {taxi_count} taxis available in Singapore<br/>
                 component re-rendered {cnt} times
             </div>
             <br/>
@@ -49,7 +51,7 @@ const App: React.FC<any> = (props) => {
                 })
             }
         </>
-    )
+    );
 }
 
-export default App;
+export default Page;
