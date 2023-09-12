@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+.tsx ファイルに "use client" statement がない限り該当 component は server で作成されます
 
 ## getStaticPaths
 
@@ -10,7 +10,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   * `npm run dev` でデバッグする時はページが開かれる度に呼び出されます
   * ファイル名の [`segment`].tsx の`segment` はこの関数の返却値の中 [`params`](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/jsonDB/post/%5Bid%5D.tsx#L27-L29) object の property名(この場合、_id_) と一致する
   * `next build` を実行したら `.next/server/pages` の下に静的 .html ファイルが作成されます。
-  * 静的に作成されたページ以外の path にユーザーがアクセスしたら
+  * `next build` によって静的に作成されたページ以外の path にユーザーがアクセスしたら
     * `fallback` が _false_ だったらそのまま Not Found ページが表示されます
     * `fallback` が _'block'_ だったら
       * 初回目の rendering に対しては、runtime で `getStaticProps` が走って server side でページ(.html) を作ってブラウザーに渡します(SSR, Server Side Rendering)
