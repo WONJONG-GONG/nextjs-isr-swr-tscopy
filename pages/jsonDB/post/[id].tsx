@@ -1,5 +1,5 @@
 import { fetchJsonDB } from "@/pages/api";
-import { GetStaticPaths, GetStaticProps } from "next"
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next"
 import axios from "axios";
 import useSWR from "swr";
 
@@ -36,24 +36,26 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params }: GetStaticPropsContext) => {
     const index = params ? Number(params.id) : 0;
+    console.log(`It is currently --------------- ${new Date().toString()}`);
     return {
         props: {
             data: (await fetchJsonDB('each'))[index],
             index
         },
-        revalidate: 1
+        revalidate: 10
     }
 }
 
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
-const Page: React.FC<{ data: ItemProps, index: number }> = (props) => {
-    const { data, error } = useSWR<ItemProps>(`/api/getJsonDB?type=each&index=${props.index}`, fetcher, {fallbackData: props.data});
+const Page: React.FC<{ data: ItemProps | undefined, index: number }> = (props) => {
+    // const { data, error } = useSWR<ItemProps>(`/api/getJsonDB?type=each&index=${props.index}`, fetcher, {fallbackData: props.data});
+    const { data } = props; // to test `revalidate` option
 
     return (
-        data ? <p>{data.about}</p> : <></>
+        data ? <p>{data.about}</p> : <>NO DATA</>
     )
 }
 
