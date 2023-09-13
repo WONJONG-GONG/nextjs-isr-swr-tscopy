@@ -62,7 +62,7 @@ npm run dev
 Next.js で public api を具現
 ### 詳細
   * `pages/api/` 下の 各 .ts ファイルは `async handler(req: NextApiRequest, res: NextApiResponse) => NextApiResponse` を default export します ([getTaxis](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/api/getTaxis.ts#L7), [getJsonDB](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/api/getJsonDB.ts#L9))
-  * 画面コードで `useSWR()` とか `fetch()` を使って `/api/${ファイル名}` の URI アドレスを通じて request 出来ます
+  * 画面コードで `useSWR()` とか `fetch()` を使って `/api/{ファイル名}` の URI アドレスを通じて request 出来ます
 #### 想定している使い方
   * 実際 API Endpoint を叩く `fetchSomeData()` と `handler` を分けて定義
     * `fetchSomeData()` は `getStaticPaths`、 `getStaticProps` が呼び出す必要があるし、それ以外の画面コードで使われる可能性あり
