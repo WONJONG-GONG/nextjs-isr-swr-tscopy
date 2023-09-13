@@ -5,11 +5,12 @@ import { GetStaticProps } from 'next';
 import { fetchCurrentTaxis } from '../api';
 
 export const getStaticProps: GetStaticProps<any> = async () => {
+    console.log(`It is currently --------------- ${new Date().toString()}`);
     return {
         props: {
             data: await fetchCurrentTaxis()
         },
-        revalidate: 1
+        revalidate: 30
     }
 }
 
@@ -26,8 +27,6 @@ const Page: React.FC<any> = (props) => {
         setCnt(cnt + 1);
     }, [data]);
 
-    console.log('from browser', data.features[0].properties.timestamp, data.features[0].properties.taxi_count);
-    
     return (
         <>
             <div>As of 
