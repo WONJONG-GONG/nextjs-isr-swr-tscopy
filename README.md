@@ -1,4 +1,27 @@
+### How to run
+#### install
+```
+npm install
+```
+#### load mock json database
+```
+json-server --watch json/db.json --port 8080
+```
+#### run in production
+```
+npm run build
+npm run start
+```
+#### run in debugging
+```
+npm run dev
+```
+
+<br/>
+<br/>
+
 > **多分** タグが付いている内容は 100% 確実にチェックがまだ出来ていない内容です。<br/> こちらに関しましては皆さん分かるようになりましたら共有して頂いたら幸いです。
+
 ## getStaticPaths
 
 ### 概要
@@ -30,3 +53,13 @@
     * 同時に、その `ページ request` によって revalidate されたデータを使って .html を新しく作成して **cache** します。
     * ２回目からの `ページ request` に対しては cache された .html が表示されます
     * > もっと正確な明細は [こちら](https://nextjs.org/docs/pages/api-reference/functions/get-static-props#revalidate) を参考してください。
+    
+<br/>
+
+## API Route
+
+### 概要
+Next.js で public api を具現
+### 詳細
+  * `pages/api/` 下の 各 .ts ファイルは `async handler(req: NextApiRequest, res: NextApiResponse) => NextApiResponse` を default export します ([getTaxis](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/api/getTaxis.ts#L7), [getJsonDB](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/api/getJsonDB.ts#L9))
+  * 画面コードで `useSWR()` とか `fetch()` を使って `/api/${ファイル名}` の URI アドレスを通じて request 出来ます

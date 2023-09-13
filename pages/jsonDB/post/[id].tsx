@@ -51,8 +51,7 @@ export const getStaticProps: GetStaticProps = async ({ params }: GetStaticPropsC
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 const Page: React.FC<{ data: ItemProps | undefined, index: number }> = (props) => {
-    // const { data, error } = useSWR<ItemProps>(`/api/getJsonDB?type=each&index=${props.index}`, fetcher, {fallbackData: props.data});
-    const { data } = props; // to test `revalidate` option
+    const { data } = props;
 
     return (
         data ? <p>{data.about}</p> : <>NO DATA</>
