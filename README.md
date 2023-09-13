@@ -20,7 +20,7 @@ npm run dev
 ### このアプリについて
 #### pages/currentTaxi
 シンガポールの[ある public api](https://api.data.gov.sg/v1/transport/taxi-availability) を叩いて現在シンガポールで走っているタクシーの情報を取ります。<br/>
-[`useSWR()` を使って](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/currentTaxi/index.tsx#L21) [`/api/getTaxis`](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/api/getTaxis.ts#L7-L11) API Route を叩きます。<br/>
+[`useSWR()` を使って](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/currentTaxi/index.tsx#L20) [`/api/getTaxis`](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/api/getTaxis.ts#L7-L11) API Route を叩きます。<br/>
 `refreshInterval: 1000` option が連れているので一秒毎に `/api/getTaxis` の `handler` を叩きます。<br/>
 そのある public api は一分毎にデータがアップデートされているらしいです。
 
