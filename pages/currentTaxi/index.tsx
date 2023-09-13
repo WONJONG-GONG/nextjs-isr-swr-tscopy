@@ -1,4 +1,3 @@
-import axios from 'axios';
 import useSWR from 'swr';
 import moment from 'moment-timezone';
 import { useEffect, useState } from 'react';
@@ -14,11 +13,11 @@ export const getStaticProps: GetStaticProps<any> = async () => {
     }
 }
 
-const fetcher = (url: string) => axios.get(url).then(res => res.data);
+const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const Page: React.FC<any> = (props) => {
     const [cnt, setCnt] = useState<number>(0);
-    const { data, error } = useSWR<any>(`/api/getTaxis?test=dumy`, fetcher, {fallbackData: props.data, refreshInterval: 100});
+    const { data, error } = useSWR<any>(`/api/getTaxis`, fetcher, {fallbackData: props.data, refreshInterval: 1000});
     
     const { timestamp, taxi_count } = data.features[0].properties;
     const coordinates = data.features[0].geometry.coordinates;

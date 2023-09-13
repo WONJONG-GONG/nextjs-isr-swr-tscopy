@@ -17,6 +17,19 @@ npm run start
 npm run dev
 ```
 
+### このアプリについて
+#### pages/currentTaxi
+シンガポールの[ある public api](https://api.data.gov.sg/v1/transport/taxi-availability) を叩いて現在シンガポールで走っているタクシーの情報を取ります。<br/>
+[`useSWR()` を使って](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/currentTaxi/index.tsx#L21) [`/api/getTaxis`](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/api/getTaxis.ts#L7-L11) API Route を叩きます。<br/>
+`refreshInterval: 1000` option が連れているので一秒毎に `/api/getTaxis` の `handler` を叩きます。<br/>
+そのある public api は一分毎にデータがアップデートされているらしいです。
+
+#### pages/jsonDB
+`json-server` を使って静的 .json ファイルで post blog を適当にシミュレーションしたものです。<br/>
+このページは `getStaticProps` をテストするため、`useSWR()` を使わず `getStaticProps` が渡した _props_ をそのまま表示してます。<br/>
+.json データの [index](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/json/db.json#L2) は一覧画面で取れると予測出来るデータをシミュレーションしたもので、[each](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/json/db.json#L44) は各々の post データであります。
+
+
 <br/>
 <br/>
 
@@ -25,7 +38,7 @@ npm run dev
 ## getStaticPaths
 
 ### 概要
-この関数を [`segment`].tsx ファイルから _export_ する事で [Dynamic routes](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes) を具現すます。
+この関数を [`segment`].tsx ファイルから _export_ する事で [Dynamic routes](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes) を具現します。
 ### 詳細
   * 静的作成時 `next build` コマンドをしたら build time で一回呼び出されます
   * `npx dev` でデバッグする時はページが開かれる度に呼び出されます
@@ -35,7 +48,7 @@ npm run dev
     * `fallback` が _false_ だったらそのまま Not Found ページが表示されます
     * `fallback` が _'blocking'_ だったら
       * 初回目の rendering に対しては、runtime で `getStaticProps` が走って server side でページ(.html) を作ってブラウザーに渡します(SSR, Server Side Rendering)
-      * 初回目の rendering が終わったら SSRで 作成てきた .html を `.next/server/pages` 下に更新 (**cache**) します。２回目からは **cache** された .html がブラウザーに表示されます
+      * 初回目の rendering が終わったら SSRで 作成した .html を `.next/server/pages` 下に更新 (**cache**) します。２回目からは **cache** された .html がブラウザーに表示されます
       * > もっと正確な明細は [こちら](https://nextjs.org/docs/pages/api-reference/functions/get-static-paths#fallback-blocking) を参考してください。
 
 <br/>

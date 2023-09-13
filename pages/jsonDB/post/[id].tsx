@@ -1,7 +1,6 @@
 import { fetchJsonDB } from "@/pages/api";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next"
 import axios from "axios";
-import useSWR from "swr";
 
 interface ItemProps {
     id: number;
@@ -47,8 +46,6 @@ export const getStaticProps: GetStaticProps = async ({ params }: GetStaticPropsC
         revalidate: 10
     }
 }
-
-const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 const Page: React.FC<{ data: ItemProps | undefined, index: number }> = (props) => {
     const { data } = props;
