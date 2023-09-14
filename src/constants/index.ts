@@ -1,4 +1,4 @@
-import { HttpHeader } from "@/src/types";
+import { HttpHeader } from "@/types";
 
 // #region API Data Fetching
 export const BASEURL: string = 'https://hoge.microcms.io/api/v1';
