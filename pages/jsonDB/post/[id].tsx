@@ -1,26 +1,9 @@
 import { fetchJsonDB } from "@/pages/api";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next"
-import axios from "axios";
-
-interface ItemProps {
-    id: number;
-    guid: string;
-    isActive: boolean;
-    name: string;
-    gender: string;
-    company: string;
-    email: string;
-    phone: string;
-    address: string;
-    about: string;
-    registered: string;
-    latitude: number;
-    longitude: number;
-    tags: string[];
-}
+import { EachProps, IndexProps } from "@/pages/api/jsonDB/getJsonDB";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const data = await fetchJsonDB('index');
+    const data = await fetchJsonDB('index') as IndexProps[];
     const paths = data.map((each: any, index: number) => {
         return {
             params: {
@@ -36,18 +19,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }: GetStaticPropsContext) => {
-    const index = params ? Number(params.id) : 0;
     console.log(`It is currently --------------- ${new Date().toString()}`);
+
+    const arr = await fetchJsonDB('each') as EachProps[];
+    const index = params ? Number(params.id) : 0;
     return {
         props: {
-            data: (await fetchJsonDB('each'))[index],
+            data: arr[index],
             index
         },
         revalidate: 10
     }
 }
 
-const Page: React.FC<{ data: ItemProps | undefined, index: number }> = (props) => {
+const Page: React.FC<{ data: EachProps | undefined, index: number }> = (props) => {
     const { data } = props;
 
     return (

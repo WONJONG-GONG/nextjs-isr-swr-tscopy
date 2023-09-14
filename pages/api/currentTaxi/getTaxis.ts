@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { BASEURL, REQUEST_HEADER } from './constants';
+import { BASEURL, REQUEST_HEADER } from '../constants';
 
 export async function fetchCurrentTaxis() {
     return fetch('https://api.data.gov.sg/v1/transport/taxi-availability').then(res => res.json());

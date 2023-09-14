@@ -1,2 +1,2 @@
-export { fetchJsonDB } from './getJsonDB';
-export { fetchCurrentTaxis } from './getTaxis';
+export { fetchJsonDB } from './jsonDB/getJsonDB';
+export { fetchCurrentTaxis } from './currentTaxi/getTaxis';
