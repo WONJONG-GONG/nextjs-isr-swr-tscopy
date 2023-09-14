@@ -18,7 +18,7 @@ const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const Page: React.FC<any> = (props) => {
     const [cnt, setCnt] = useState<number>(0);
-    const { data, error } = useSWR<any>(`/api/getTaxis`, fetcher, {fallbackData: props.data, refreshInterval: 1000});
+    const { data, error } = useSWR<any>('/api/currentTaxi/getTaxis', fetcher, {fallbackData: props.data, refreshInterval: 1000});
     
     const { timestamp, taxi_count } = data.features[0].properties;
     const coordinates = data.features[0].geometry.coordinates;

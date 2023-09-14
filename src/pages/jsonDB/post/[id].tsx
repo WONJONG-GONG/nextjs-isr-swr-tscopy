@@ -1,6 +1,6 @@
-import { fetchJsonDB } from "@/pages/api";
+import { fetchJsonDB } from "@/src/pages/api";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next"
-import { EachProps, IndexProps } from "@/pages/api/jsonDB/getJsonDB";
+import { EachProps, IndexProps } from "@/src/pages/api/jsonDB/getJsonDB";
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const data = await fetchJsonDB('index') as IndexProps[];

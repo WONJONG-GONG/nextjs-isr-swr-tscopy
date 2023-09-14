@@ -1,5 +1,5 @@
 import { GetStaticProps } from "next";
-import { fetchJsonDB } from "@/pages/api";
+import { fetchJsonDB } from "@/src/pages/api";
 import Link from "next/link";
 
 interface IndexProps {
