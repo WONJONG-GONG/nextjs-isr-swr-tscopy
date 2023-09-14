@@ -20,7 +20,7 @@ npm run dev
 ### このアプリについて
 #### pages/currentTaxi
 シンガポールの[ある public api](https://api.data.gov.sg/v1/transport/taxi-availability) を叩いて現在シンガポールで走っているタクシーの情報を取ります。<br/>
-[`useSWR()` を使って](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/currentTaxi/index.tsx#L20) [`/api/getTaxis`](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/api/getTaxis.ts#L7-L11) API Route を叩きます。<br/>
+[`useSWR()` を使って](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/currentTaxi/index.tsx#L21) [`/api/getTaxis`](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/api/currentTaxi/getTaxis.ts#L4-L13) API Route を叩きます。<br/>
 `refreshInterval: 1000` option が連れているので一秒毎に `/api/getTaxis` の `handler` を叩きます。<br/>
 そのある public api は一分毎にデータがアップデートされているらしいです。
 
@@ -74,7 +74,7 @@ npm run dev
 ### 概要
 Next.js で public api を具現
 ### 詳細
-  * `pages/api/` 下の 各 .ts ファイルは `async handler(req: NextApiRequest, res: NextApiResponse) => NextApiResponse` を default export します ([getTaxis](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/api/getTaxis.ts#L7), [getJsonDB](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/api/getJsonDB.ts#L9))
+  * `pages/api/` 下の 各 .ts ファイルは `async handler(req: NextApiRequest, res: NextApiResponse) => NextApiResponse` を default export します ([getTaxis](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/api/currentTaxi/getTaxis.ts#L15), [getJsonDB](https://github.com/WONJONG-GONG/nextjs-isr-swr-tscopy/blob/master/pages/api/jsonDB/getJsonDB.ts#L31))
   * 画面コードで `useSWR()` とか `fetch()` を使って `/api/{ファイル名}` の URI アドレスを通じて request 出来ます
 #### 想定している使い方
   * 実際 API Endpoint を叩く `fetchSomeData()` と `handler` を分けて定義
